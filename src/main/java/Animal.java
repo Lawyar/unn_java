@@ -1,9 +1,9 @@
 public class Animal
 {
-    String animal_type; //predators, herbivores
-    String animal_name;
-    String animal_class; //fish, amphibians, birds, reptiles, mammals
-    String animal_voice;
+    private String animal_type; //predators, herbivores
+    private String animal_name;
+    private String animal_class; //fish, amphibians, birds, reptiles, mammals
+    private String animal_voice;
 
     public  Animal(){ }
 
