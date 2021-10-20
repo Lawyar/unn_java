@@ -9,7 +9,7 @@ public class App
         ani.setAnimal_voice("crya");
         Animal ani2 = new Animal("herbivore", "giraffe", "mammal", "uuuu");
 
-        Zoo zoo = new Zoo();
+        Zoo zoo = new Zoo(4);
         try
         {
             zoo.add_animal(ani);
@@ -28,8 +28,10 @@ public class App
         {
             System.out.println(zoo.voice_from_cage(i));
         }
-        System.out.println();
+        System.out.println("Herbivores quantity: " + zoo.getHerbivores_quantity()
+                + "\tPredators quantity: " + zoo.getPredators_quantity());
 
+        System.out.println();
         try
         {
             zoo.remove_animal(3);
@@ -44,6 +46,8 @@ public class App
         {
             System.out.println(zoo.voice_from_cage(i));
         }
+        System.out.println("Herbivores quantity: " + zoo.getHerbivores_quantity()
+                + "\tPredators quantity: " + zoo.getPredators_quantity());
 
         System.out.println();
         Zoo zoo2 = new Zoo();
@@ -59,5 +63,18 @@ public class App
         {
             System.out.println(zoo2.voice_from_cage(i));
         }
+        System.out.println("Herbivores quantity: " + zoo2.getHerbivores_quantity()
+                + "\tPredators quantity: " + zoo2.getPredators_quantity()
+                + "\t" + zoo2.unique_classes());
+        Animal ani3 = new Animal("predator", "fish", "shark", "sharky sharky");
+        zoo2.buy_cage();
+        zoo2.add_animal(ani3);
+        for (int i = 0; i < zoo2.getCages_quantity(); i++)
+        {
+            System.out.println(zoo2.voice_from_cage(i));
+        }
+        System.out.println("Herbivores quantity: " + zoo2.getHerbivores_quantity()
+                            + "\tPredators quantity: " + zoo2.getPredators_quantity()
+                            + "\t" + zoo2.unique_classes());
     }
 }

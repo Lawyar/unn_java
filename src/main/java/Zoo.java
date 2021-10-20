@@ -1,24 +1,41 @@
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Zoo
 {
-    private final int cages_quantity = 4;
-    private Cage[] cages;
-    private void cages_init()
+    private int cages_quantity;
+    private ArrayList<Cage> cages;
+    private void cages_init(int cages_quantity)
     {
-        this.cages = new Cage[cages_quantity];
-        for (int i = 0; i < cages_quantity; i++)
+        this.cages_quantity = cages_quantity;
+        this.cages = new ArrayList<>();
+        for (int i = 0; i < this.cages_quantity; i++)
         {
-            this.cages[i] = new Cage();
+            Cage tmp = new Cage();
+            this.cages.add(tmp);
         }
     }
-
-    public Zoo()
+    private int type_quantity(String type)
     {
-        cages_init();
+        int res = 0;
+        for(int i = 0; i < cages_quantity; i++)
+        {
+            if(Objects.equals(cages.get(i).getCaged_animal().getAnimal_type(), type))
+            {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    public Zoo(int cages_quantity)
+    {
+        cages_init(cages_quantity);
     };
 
     public Zoo(Animal ... animals)
     {
-        cages_init();
+        cages_init(animals.length);
 
         for(int i = 0; i < animals.length; i++)
         {
@@ -28,7 +45,7 @@ public class Zoo
                 {
                     throw new ArrayStoreException("NOT ENOUGH CAGES");
                 }
-                this.cages[i].setCaged_animal(animals[i]);
+                this.cages.get(i).setCaged_animal(animals[i]);
             }
             catch (ArrayStoreException e)
             {
@@ -42,9 +59,9 @@ public class Zoo
     {
         for (int i = 0; i < this.cages_quantity; i++)
         {
-            if(!this.cages[i].get_status())
+            if(!this.cages.get(i).get_status())
             {
-                this.cages[i].setCaged_animal(animal);
+                this.cages.get(i).setCaged_animal(animal);
                 return;
             }
         }
@@ -57,9 +74,9 @@ public class Zoo
         {
             throw new ArrayIndexOutOfBoundsException("INCORRECT INDEX");
         }
-        if(cages[cage_index].get_status())
+        if(cages.get(cage_index).get_status())
         {
-            cages[cage_index].clean();
+            cages.get(cage_index).clean();
         }
     }
 
@@ -69,15 +86,50 @@ public class Zoo
         {
             throw new ArrayIndexOutOfBoundsException("INCORRECT INDEX");
         }
-        if(!cages[cage_index].get_status())
+        if(!cages.get(cage_index).get_status())
         {
-            return "silence";
+            return "-";
         }
-        return cages[cage_index].getCaged_animal().getAnimal_voice();
+        return cages.get(cage_index).getCaged_animal().getAnimal_voice();
     }
 
     public int getCages_quantity()
     {
         return cages_quantity;
+    }
+
+    public int getHerbivores_quantity()
+    {
+        return type_quantity("herbivore");
+    }
+    public int getPredators_quantity()
+    {
+        return type_quantity("predator");
+    }
+    public ArrayList<String> unique_classes()
+    {
+        ArrayList<String> res = new ArrayList<>();
+        for(int i = 0; i < cages_quantity; i++)
+        {
+            boolean flag = true;
+            for(int j = 0; j < cages_quantity; j++)
+            {
+                if(Objects.equals(cages.get(i).getCaged_animal().getAnimal_class(),
+                        cages.get(j).getCaged_animal().getAnimal_class()) && i != j)
+                {
+                    flag = false;
+                }
+            }
+            if(flag)
+            {
+                res.add(cages.get(i).getCaged_animal().getAnimal_class());
+            }
+        }
+        return res;
+    }
+    public void buy_cage()
+    {
+        cages_quantity++;
+        cages.add(new Cage());
     }
 }

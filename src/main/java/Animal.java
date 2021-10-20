@@ -19,11 +19,11 @@ public class Animal
     {
         this.animal_type = animal_type;
     }
-    public  void setAnimal_name(String animal_name)
+    public void setAnimal_name(String animal_name)
     {
         this.animal_name = animal_name;
     }
-    public  void setAnimal_class(String animal_class)
+    public void setAnimal_class(String animal_class)
     {
         this.animal_class = animal_class;
     }
