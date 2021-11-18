@@ -1,3 +1,5 @@
+import Animals.Animal;
+
 public class Cage
 {
     private boolean is_full;
@@ -5,7 +7,6 @@ public class Cage
 
     Cage()
     {
-        caged_animal = new Animal();
         is_full = false;
     };
 
@@ -20,9 +21,8 @@ public class Cage
         this.caged_animal = animal;
         is_full = true;
     }
-    public void clean()
+    public void clear()
     {
-        this.caged_animal = new Animal();
         is_full = false;
     }
 

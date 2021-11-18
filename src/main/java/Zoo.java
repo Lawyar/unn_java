@@ -1,18 +1,24 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
+
+import Animals.Animal;
 
 public class Zoo
 {
     private int cages_quantity;
     private ArrayList<Cage> cages;
+    private HashSet<String> unique_classes;
     private void cages_init(int cages_quantity)
     {
         this.cages_quantity = cages_quantity;
         this.cages = new ArrayList<>();
+        this.unique_classes = new HashSet<>();
         for (int i = 0; i < this.cages_quantity; i++)
         {
             Cage tmp = new Cage();
             this.cages.add(tmp);
+            this.unique_classes.add(tmp.getCaged_animal().getAnimal_class());
         }
     }
     private int type_quantity(String type)
@@ -62,6 +68,7 @@ public class Zoo
             if(!this.cages.get(i).get_status())
             {
                 this.cages.get(i).setCaged_animal(animal);
+                this.unique_classes.add(this.cages.get(i).getCaged_animal().getAnimal_class());
                 return;
             }
         }
@@ -76,7 +83,12 @@ public class Zoo
         }
         if(cages.get(cage_index).get_status())
         {
-            cages.get(cage_index).clean();
+            cages.get(cage_index).clear();
+        }
+
+        for(int i = 0; i < cages_quantity; i++)
+        {
+            unique_classes.add(cages.get(i).getCaged_animal().getAnimal_class());
         }
     }
 
@@ -106,26 +118,9 @@ public class Zoo
     {
         return type_quantity("predator");
     }
-    public ArrayList<String> unique_classes()
+    public HashSet<String> getUnique_classes()
     {
-        ArrayList<String> res = new ArrayList<>();
-        for(int i = 0; i < cages_quantity; i++)
-        {
-            boolean flag = true;
-            for(int j = 0; j < cages_quantity; j++)
-            {
-                if(Objects.equals(cages.get(i).getCaged_animal().getAnimal_class(),
-                        cages.get(j).getCaged_animal().getAnimal_class()) && i != j)
-                {
-                    flag = false;
-                }
-            }
-            if(flag)
-            {
-                res.add(cages.get(i).getCaged_animal().getAnimal_class());
-            }
-        }
-        return res;
+        return this.unique_classes;
     }
     public void buy_cage()
     {
