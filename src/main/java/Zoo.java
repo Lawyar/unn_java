@@ -1,32 +1,30 @@
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import Animals.Animal;
+import Animals.AnimalClass;
+import Animals.AnimalType;
 
 public class Zoo
 {
     private int cages_quantity;
     private ArrayList<Cage> cages;
-    private HashSet<String> unique_classes;
+    private Set<String> unique_classes;
     private void cages_init(int cages_quantity)
     {
         this.cages_quantity = cages_quantity;
         this.cages = new ArrayList<>();
         this.unique_classes = new HashSet<>();
-        for (int i = 0; i < this.cages_quantity; i++)
-        {
-            Cage tmp = new Cage();
-            this.cages.add(tmp);
-            this.unique_classes.add(tmp.getCaged_animal().getAnimal_class());
-        }
     }
-    private int type_quantity(String type)
+    private int type_quantity(AnimalType type)
     {
         int res = 0;
         for(int i = 0; i < cages_quantity; i++)
         {
-            if(Objects.equals(cages.get(i).getCaged_animal().getAnimal_type(), type))
+            String tmpType = cages.get(i).getCaged_animal().getAnimal_type();
+            if(Objects.equals(tmpType, type.toString()))
             {
                 res++;
             }
@@ -51,7 +49,9 @@ public class Zoo
                 {
                     throw new ArrayStoreException("NOT ENOUGH CAGES");
                 }
-                this.cages.get(i).setCaged_animal(animals[i]);
+                Cage tmp = new Cage(animals[i]);
+                this.cages.add(tmp);
+                this.unique_classes.add(animals[i].getAnimal_class());
             }
             catch (ArrayStoreException e)
             {
@@ -112,13 +112,13 @@ public class Zoo
 
     public int getHerbivores_quantity()
     {
-        return type_quantity("herbivore");
+        return type_quantity(AnimalType.Herbivores);
     }
     public int getPredators_quantity()
     {
-        return type_quantity("predator");
+        return type_quantity(AnimalType.Predators);
     }
-    public HashSet<String> getUnique_classes()
+    public Set<String> getUnique_classes()
     {
         return this.unique_classes;
     }
