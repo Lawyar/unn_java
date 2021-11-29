@@ -14,20 +14,21 @@ public abstract class Animal implements IAnimal
         _animal_class = AnimalClass.NoClass;
         _animal_voice = "SILENCE";
     }
+
     @Override
-    public String getAnimal_type() //predators, herbivores
+    public AnimalType get_type() //predators, herbivores
     {
-        return this._animal_type.toString();
+        return this._animal_type;
     }
     @Override
     public String get_name()
     {
-        return this._animal_name.toString();
+        return this._animal_name;
     }
     @Override
-    public String get_class() //fish, amphibians, birds, reptiles, mammals
+    public AnimalClass get_class() //fish, amphibians, birds, reptiles, mammals
     {
-        return this._animal_class.toString();
+        return this._animal_class;
     }
     @Override
     public String get_voice()

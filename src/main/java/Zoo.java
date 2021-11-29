@@ -11,7 +11,7 @@ public class Zoo
 {
     private int cages_quantity;
     private ArrayList<Cage> cages;
-    private Set<String> unique_classes;
+    private Set<AnimalClass> unique_classes;
     private void cages_init(int cages_quantity)
     {
         this.cages_quantity = cages_quantity;
@@ -23,8 +23,8 @@ public class Zoo
         int res = 0;
         for(int i = 0; i < cages_quantity; i++)
         {
-            String tmpType = cages.get(i).getCaged_animal().getAnimal_type();
-            if(Objects.equals(tmpType, type.toString()))
+            AnimalType tmpType = cages.get(i).getCaged_animal().get_type();
+            if(Objects.equals(tmpType, type))
             {
                 res++;
             }
@@ -35,7 +35,7 @@ public class Zoo
     public Zoo(int cages_quantity)
     {
         cages_init(cages_quantity);
-    };
+    }
 
     public Zoo(Animal ... animals)
     {
@@ -123,7 +123,7 @@ public class Zoo
     {
         return type_quantity(AnimalType.Predators);
     }
-    public Set<String> getUnique_classes()
+    public Set<AnimalClass> getUnique_classes()
     {
         return this.unique_classes;
     }
