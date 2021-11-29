@@ -1,5 +1,5 @@
 import Animals.Animal;
-import Animals.AnimalName;
+import Animals.AnimalKind;
 import Animals.BAnimal;
 
 import java.util.Set;
@@ -9,15 +9,15 @@ public class App
 {
     public static void main( String[] args )
     {
-        Animal kitty1 = BAnimal.build(AnimalName.Cat);
-        Animal kitty2 = BAnimal.build(AnimalName.Cat);
-        Animal Giraffe1 = BAnimal.build(AnimalName.Giraffe);
+        Animal kitty1 = BAnimal.build(AnimalKind.Cat);
+        Animal kitty2 = BAnimal.build(AnimalKind.Cat);
+        Animal Giraffe1 = BAnimal.build(AnimalKind.Giraffe);
 
         System.out.println(Giraffe1.getAnimal_type());
         Zoo zoo1 = new Zoo(kitty1, kitty2, Giraffe1);
         for(int i = 0; i < zoo1.getCages_quantity(); i++)
         {
-            System.out.println(zoo1.voice_from_cage(i));
+            System.out.println(zoo1.animal_info(i));
         }
         Set<String> uniq = zoo1.getUnique_classes();
         for(String el:uniq)

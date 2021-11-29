@@ -2,10 +2,10 @@ package Animals;
 
 public class BAnimal
 {
-    public static Animal build(AnimalName name)
+    public static Animal build(AnimalKind kind)
     {
         Animal res = null;
-        switch (name)
+        switch (kind)
         {
             case Cat:
                 res = new Cat();
@@ -17,7 +17,7 @@ public class BAnimal
             case Crocodile:
                 break;
             default:
-                throw new IllegalArgumentException("Wrong animal name:" + name);
+                throw new IllegalArgumentException("Wrong animal kind:" + kind);
         }
         return res;
     }

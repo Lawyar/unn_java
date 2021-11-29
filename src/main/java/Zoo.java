@@ -51,7 +51,7 @@ public class Zoo
                 }
                 Cage tmp = new Cage(animals[i]);
                 this.cages.add(tmp);
-                this.unique_classes.add(animals[i].getAnimal_class());
+                this.unique_classes.add(animals[i].get_class());
             }
             catch (ArrayStoreException e)
             {
@@ -68,7 +68,7 @@ public class Zoo
             if(!this.cages.get(i).get_status())
             {
                 this.cages.get(i).setCaged_animal(animal);
-                this.unique_classes.add(this.cages.get(i).getCaged_animal().getAnimal_class());
+                this.unique_classes.add(this.cages.get(i).getCaged_animal().get_class());
                 return;
             }
         }
@@ -88,7 +88,7 @@ public class Zoo
 
         for(int i = 0; i < cages_quantity; i++)
         {
-            unique_classes.add(cages.get(i).getCaged_animal().getAnimal_class());
+            unique_classes.add(cages.get(i).getCaged_animal().get_class());
         }
     }
 
@@ -102,7 +102,12 @@ public class Zoo
         {
             return "-";
         }
-        return cages.get(cage_index).getCaged_animal().getAnimal_voice();
+        return cages.get(cage_index).getCaged_animal().get_voice();
+    }
+
+    public String animal_info(int cage_index)
+    {
+        return this.cages.get(cage_index).toString();
     }
 
     public int getCages_quantity()
