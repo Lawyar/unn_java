@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ui.MainForm">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="10" width="579" height="410"/>
+    </constraints>
+    <properties>
+      <foreground color="-3209216"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="84777" binding="lowerPanel" layout-manager="GridLayoutManager" row-count="1" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="6b1b7" class="javax.swing.JLabel" binding="animalsNumLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Animals: 0"/>
+            </properties>
+          </component>
+          <component id="f1875" class="javax.swing.JLabel" binding="emptyNumLabel">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Empty: 0"/>
+            </properties>
+          </component>
+          <grid id="c45aa" binding="buttonPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="ed78d" class="javax.swing.JCheckBox" binding="checkBox1" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="d6937" class="javax.swing.JButton" binding="onlyUniqueButton">
+                <constraints/>
+                <properties>
+                  <text value="Only Unique"/>
+                </properties>
+              </component>
+              <component id="1eccd" class="javax.swing.JButton" binding="buyCageButton">
+                <constraints/>
+                <properties>
+                  <text value="Buy Cage"/>
+                </properties>
+              </component>
+              <component id="51a41" class="javax.swing.JToolBar$Separator">
+                <constraints/>
+                <properties/>
+              </component>
+              <component id="a0162" class="javax.swing.JButton" binding="rmSelectedButton">
+                <constraints/>
+                <properties>
+                  <background color="-3209216"/>
+                  <text value="Remove Selected"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <component id="1804a" class="javax.swing.JToolBar$Separator">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="45d24" class="javax.swing.JLabel" binding="cagesNumLabel">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Cages: 0"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="ebd90" class="javax.swing.JList" binding="cagesList">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+    </children>
+  </grid>
+</form>
