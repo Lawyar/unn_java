@@ -4,7 +4,7 @@ public class Crocodile extends Predator
 {
     Crocodile()
     {
-        this._animal_voice = "RR";
-        this._animal_class = AnimalClass.Reptile;
+        this.myAnimalClass = AnimalClass.Reptile;
+        this.myAnimalKind = AnimalKind.Crocodile;
     }
 }

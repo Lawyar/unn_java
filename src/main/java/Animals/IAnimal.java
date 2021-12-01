@@ -2,13 +2,14 @@ package Animals;
 
 public interface IAnimal
 {
-    AnimalType get_type(); //predators, herbivores
-    String get_name();
+    AnimalType getType(); //predators, herbivores
+    String getName();
     AnimalClass get_class(); //fish, amphibians, birds, reptiles, mammals
-    String get_voice();
+    String getVoice();
+    AnimalKind getKind();
 
-    void set_name(String name);
-    void set_voice(String voice);
+    void setName(String name);
+    void setVoice(String voice);
 
     String toString();
 }

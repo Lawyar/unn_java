@@ -2,54 +2,65 @@ package Animals;
 
 public abstract class Animal implements IAnimal
 {
-    protected AnimalType _animal_type;
-    protected String _animal_name;
-    protected AnimalClass _animal_class;
-    protected String _animal_voice;
+    protected AnimalType myAnimalType;
+    protected String myAnimalName;
+    protected AnimalClass myAnimalClass;
+    protected String myAnimalVoice;
+    protected AnimalKind myAnimalKind;
 
     Animal()
     {
-        _animal_type = AnimalType.NoType;
-        _animal_name = "NONAME";
-        _animal_class = AnimalClass.NoClass;
-        _animal_voice = "SILENCE";
+        myAnimalType = AnimalType.NoType;
+        myAnimalName = " ";
+        myAnimalClass = AnimalClass.NoClass;
+        myAnimalVoice = " ";
+        myAnimalKind = AnimalKind.NoKind;
     }
 
     @Override
-    public AnimalType get_type() //predators, herbivores
+    public AnimalType getType() //predators, herbivores
     {
-        return this._animal_type;
+        return this.myAnimalType;
     }
+
     @Override
-    public String get_name()
+    public String getName()
     {
-        return this._animal_name;
+        return this.myAnimalName;
     }
+
     @Override
     public AnimalClass get_class() //fish, amphibians, birds, reptiles, mammals
     {
-        return this._animal_class;
+        return this.myAnimalClass;
     }
     @Override
-    public String get_voice()
+    public String getVoice()
     {
-        return this._animal_voice;
+        return this.myAnimalVoice;
     }
 
     @Override
-    public void set_name(String name)
+    public AnimalKind getKind()
     {
-        this._animal_name = name;
+        return myAnimalKind;
     }
+
     @Override
-    public void set_voice(String voice)
+    public void setName(String name)
     {
-        this._animal_voice = voice;
+        this.myAnimalName = name;
+    }
+
+    @Override
+    public void setVoice(String voice)
+    {
+        this.myAnimalVoice = voice;
     }
 
     @Override
     public String toString()
     {
-        return _animal_type.toString() + " " + _animal_class.toString() + " " + _animal_name + " " + _animal_voice;
+        return myAnimalType.toString() + " " + myAnimalClass.toString() + " " + myAnimalName + " " + myAnimalVoice;
     }
 }

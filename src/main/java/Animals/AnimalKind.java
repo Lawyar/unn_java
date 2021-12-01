@@ -2,5 +2,5 @@ package Animals;
 
 public enum AnimalKind
 {
-    NoName, Cat, Giraffe, Crocodile
+    NoKind, Cat, Giraffe, Crocodile
 }

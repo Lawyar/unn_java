@@ -1,24 +1,40 @@
 package Animals;
 
+import java.util.Objects;
+
 public class BAnimal
 {
-    public static Animal build(AnimalKind kind)
+    public static Cage build(AnimalKind kind)
     {
-        Animal res = null;
+        Cage res = new Cage();
         switch (kind)
         {
             case Cat:
-                res = new Cat();
+                res.setCagedAnimal(new Cat());
                 break;
             case Giraffe:
-                res = new Giraffe();
-                System.out.println("FFFFFFFFFFFFFFFFFF");
+                res.setCagedAnimal(new Giraffe());
                 break;
             case Crocodile:
+                res.setCagedAnimal(new Crocodile());
+                break;
+            case NoKind:
+                res.setCagedAnimal(new NoKindAnimal());
                 break;
             default:
                 throw new IllegalArgumentException("Wrong animal kind:" + kind);
         }
         return res;
+    }
+    public static Cage build(String kind)
+    {
+        for(AnimalKind k:AnimalKind.values())
+        {
+            if(Objects.equals(k.toString(), kind))
+            {
+                return build(k);
+            }
+        }
+        return null;
     }
 }

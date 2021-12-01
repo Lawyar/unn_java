@@ -4,6 +4,6 @@ public abstract class Herbivore extends Animal
 {
     Herbivore()
     {
-        this._animal_type = AnimalType.Herbivores;
+        this.myAnimalType = AnimalType.Herbivore;
     }
 }

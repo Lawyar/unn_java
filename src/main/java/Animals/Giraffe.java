@@ -4,6 +4,7 @@ public class Giraffe extends Herbivore
 {
     Giraffe()
     {
-        this._animal_class = AnimalClass.Mammal;
+        this.myAnimalClass = AnimalClass.Mammal;
+        this.myAnimalKind = AnimalKind.Giraffe;
     }
 }
