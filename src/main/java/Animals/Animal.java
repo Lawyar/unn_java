@@ -63,4 +63,14 @@ public abstract class Animal implements IAnimal
     {
         return myAnimalType.toString() + " " + myAnimalClass.toString() + " " + myAnimalName + " " + myAnimalVoice;
     }
+
+    @Override
+    public boolean equals(Animal animal) {
+        if(this.getKind() == animal.getKind() && this.getType() == animal.getType() &&
+        this.getClass() == animal.getClass())
+        {
+            return true;
+        }
+        return false;
+    }
 }

@@ -21,6 +21,9 @@ public class BAnimal
             case NoKind:
                 res.setCagedAnimal(new NoKindAnimal());
                 break;
+            case Pigeon:
+                res.setCagedAnimal(new Pigeon());
+                break;
             default:
                 throw new IllegalArgumentException("Wrong animal kind:" + kind);
         }

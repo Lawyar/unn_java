@@ -8,11 +8,14 @@ public class Zoo
     private int myRealAnimals;
     private ArrayList<Cage> myCages;
     private Set<AnimalClass> myUniqueClasses;
+    private Set<Animal> myUniqueAnimals; //unique by class
+
     private void cagesInit(int cages_quantity)
     {
         this.myCagesNum = cages_quantity;
         this.myCages = new ArrayList<>();
         this.myUniqueClasses = new HashSet<>();
+        this.myUniqueAnimals = new HashSet<>();
         myRealAnimals = 0;
     }
     private int typeQuantity(AnimalType type)
@@ -27,6 +30,22 @@ public class Zoo
             }
         }
         return res;
+    }
+
+    private void addToUnique(Animal ani)
+    {
+       boolean flag = true;
+       for(Cage cage:myCages) {
+           if(cage.getMyCagedAnimal() != null && cage.getMyCagedAnimal().equals(ani)) {
+               flag = false;
+               myUniqueAnimals.remove(cage.getMyCagedAnimal());
+               break;
+           }
+       }
+
+       if(flag) {
+           myUniqueAnimals.add(ani);
+       }
     }
 
     public Zoo(int myCagesNum)
@@ -52,7 +71,7 @@ public class Zoo
                     myRealAnimals++;
                 }
                 this.myCages.add(tmp);
-                this.myUniqueClasses.add(animals[i].get_class());
+                addToUnique(animals[i]);
             }
             catch (ArrayStoreException e)
             {
@@ -68,12 +87,13 @@ public class Zoo
         {
             if(!this.myCages.get(i).isFull())
             {
+                addToUnique(animal);
+                this.myCages.get(i).setCagedAnimal(animal);
                 if(animal.getKind() != AnimalKind.NoKind)
                 {
                     myRealAnimals++;
                 }
-                this.myCages.get(i).setCagedAnimal(animal);
-                this.myUniqueClasses.add(this.myCages.get(i).getMyCagedAnimal().get_class());
+
                 return;
             }
         }
@@ -92,12 +112,13 @@ public class Zoo
             {
                 myRealAnimals--;
             }
-            myCages.get(cage_index).clear();
+            myCages.remove(cage_index);
+            myCagesNum--;
         }
 
         for(int i = 0; i < myCagesNum; i++)
         {
-            myUniqueClasses.add(myCages.get(i).getMyCagedAnimal().get_class());
+            addToUnique(this.myCages.get(i).getMyCagedAnimal());
         }
     }
 
@@ -135,6 +156,10 @@ public class Zoo
     public Set<AnimalClass> getUniqueClasses()
     {
         return this.myUniqueClasses;
+    }
+    public Set<Animal> getUniqueAnimals()
+    {
+        return this.myUniqueAnimals;
     }
     public void buyCage()
     {

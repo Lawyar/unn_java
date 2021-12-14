@@ -12,4 +12,6 @@ public interface IAnimal
     void setVoice(String voice);
 
     String toString();
+
+    boolean equals(Animal animal);
 }

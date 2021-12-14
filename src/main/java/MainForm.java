@@ -1,13 +1,13 @@
-import Animals.Animal;
-import Animals.AnimalKind;
-import Animals.BAnimal;
-import Animals.Zoo;
+import Animals.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
 
@@ -50,6 +50,7 @@ public class MainForm extends JFrame {
         buyCageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                onlyUniqueCheckBox.setSelected(false);
                 zoo.buyCage();
                 buyingWindow();
             }
@@ -57,6 +58,60 @@ public class MainForm extends JFrame {
         rmSelectedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        onlyUniqueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(onlyUniqueCheckBox.isSelected())
+                {
+                    onlyUniqueCheckBox.setSelected(false);
+                }
+                else
+                {
+                    onlyUniqueCheckBox.setSelected(true);
+                }
+            }
+        });
+        onlyUniqueCheckBox.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if(onlyUniqueCheckBox.isSelected())
+                {
+                    List<Animal> animalList = new ArrayList<>(zoo.getUniqueAnimals());
+                    updateTable(animalList);
+                }
+                else
+                {
+                    updateTable(zoo.getAnimals());
+                }
+            }
+        });
+        rmSelectedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int getSelectedRowForDeletion = animalTable.getSelectedRow();
+                if (getSelectedRowForDeletion >= 0) {
+                    zoo.removeAnimal(getSelectedRowForDeletion);
+                    animalTableModel.removeRow(getSelectedRowForDeletion);
+                    if(onlyUniqueCheckBox.isSelected())
+                    {
+                        updateTable(zoo.getAnimals());
+                    }
+                    else
+                    {
+                        ArrayList<Animal> animals = new ArrayList<>(zoo.getUniqueAnimals());
+                        updateTable(animals);
+                    }
+                    animalsNumLabel.setText("Animals: " + zoo.getRealAnimals());
+                    cagesNumLabel.setText("Cages: " + zoo.getCagesNum());
+                    emptyNumLabel.setText("Empty: " + (zoo.getCagesNum() - zoo.getRealAnimals()));
+                    animalTable.repaint();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Unable To Delete");
+                }
 
             }
         });
@@ -153,16 +208,16 @@ public class MainForm extends JFrame {
             if(!createEmptyBox.isSelected())
             {
                 zoo.addAnimal(animal);
-                animalTableModel.addRow(new Object[] {true, animal.getKind().toString(),
-                        animal.getName(), animal.getVoice()});
+                animalTableModel.addRow(new Object[] {zoo.getCagesNum(), animal.getKind().toString(),
+                        animal.getName(), animal.getVoice(), animal.getType(), animal.get_class()});
                 animalsNumLabel.setText("Animals: " + zoo.getRealAnimals());
                 cagesNumLabel.setText("Cages: " + zoo.getCagesNum());
             }
             else
             {
                 zoo.addAnimal(BAnimal.build(AnimalKind.NoKind).getMyCagedAnimal());
-                animalTableModel.addRow(new Object[] {true, AnimalKind.NoKind.toString(),
-                        " ", " "});
+                animalTableModel.addRow(new Object[] {zoo.getCagesNum(), AnimalKind.NoKind.toString(),
+                        " ", " ", AnimalType.NoType, AnimalClass.NoClass});
                 animalsNumLabel.setText("Animals: " + zoo.getRealAnimals());
                 cagesNumLabel.setText("Cages: " + zoo.getCagesNum());
                 emptyNumLabel.setText("Empty: " + (zoo.getCagesNum() - zoo.getRealAnimals()));
@@ -199,7 +254,7 @@ public class MainForm extends JFrame {
 
     private void createTable()
     {
-        String[] cagedAnimalsHeaders = {" ", "Kind", "Name", "Voice", "Additional Info"};
+        String[] cagedAnimalsHeaders = {" ", "Kind", "Name", "Voice", "Type", "Class"};
 
         animalTableModel = new DefaultTableModel(null, cagedAnimalsHeaders) {
             @Override
@@ -214,19 +269,14 @@ public class MainForm extends JFrame {
 
         animalTable.setModel(animalTableModel);
         animalTable.getColumnModel().getColumn(0).setMaxWidth(25);
-        animalTable.getColumnModel().getColumn(1).setMaxWidth((mainPanel.getWidth() - 25) / 6);
-        animalTable.getColumnModel().getColumn(2).setMaxWidth((mainPanel.getWidth() - 25) / 6);
-        animalTable.getColumnModel().getColumn(3).setMaxWidth((mainPanel.getWidth() - 25) / 6);
-        animalTable.getColumnModel().getColumn(4).setMaxWidth((mainPanel.getWidth() - 25) / 2);
+        animalTable.getColumnModel().getColumn(1).setMaxWidth((mainPanel.getWidth() - 25) / 5);
+        animalTable.getColumnModel().getColumn(2).setMaxWidth((mainPanel.getWidth() - 25) / 5);
+        animalTable.getColumnModel().getColumn(3).setMaxWidth((mainPanel.getWidth() - 25) / 5);
+        animalTable.getColumnModel().getColumn(4).setMaxWidth((mainPanel.getWidth() - 25) / 5);
+        animalTable.getColumnModel().getColumn(5).setMaxWidth((mainPanel.getWidth() - 25) / 5);
 
         animalTable.setRowSelectionAllowed(true);
         animalTable.setColumnSelectionAllowed(false);
-
-        animalTable.getSelectionModel().addListSelectionListener(e -> {
-            selectedRows.clear();
-            selectedRows.add(animalTable.getSelectedRows());
-            selectedNumLabel.setText("Selected: " + selectedRows.size());
-        });
 
         animalTable.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(myAnimalKindComboBox));
     }
@@ -242,6 +292,22 @@ public class MainForm extends JFrame {
                 continue;
             }
             myAnimalKindComboBox.addItem(kind.toString());
+        }
+    }
+
+    private void updateTable(List<Animal> elements)
+    {
+        animalTableModel.setRowCount(0);
+        int counter = 1;
+        for(Animal curr:elements)
+        {
+            if(curr == null)
+            {
+                continue;
+            }
+            animalTableModel.addRow(new Object[]{counter, curr.getKind(), curr.getName(),
+                    curr.getVoice(), curr.getType(), curr.get_class()});
+            counter++;
         }
     }
 }
